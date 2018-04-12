@@ -1,19 +1,19 @@
 /*
- Package yahr implements a simple trie accepting named values
- ex.:
- rt := yahr.New()
- rt.Handler("GET", "/myapp/:id", yahr.Handler)
- rt.Handler("POST", "/myapp/:id", yahr.Handler)
- rt.Handler("PUT", "/myapp/:id/rating", yahr.Handler)
+Package yahr implements a simple trie accepting named values
+ex.:
+rt := yahr.New()
+rt.Handler("GET", "/myapp/:id", yahr.Handler)
+rt.Handler("POST", "/myapp/:id", yahr.Handler)
+rt.Handler("PUT", "/myapp/:id/rating", yahr.Handler)
 
- If you want to understand how trie works:
- https://en.wikipedia.org/wiki/Trie
+If you want to understand how trie works:
+https://en.wikipedia.org/wiki/Trie
 
- a more complex and elegant implementation
- https://github.com/julienschmidt/httprouter
+A more complex and elegant implementation
+https://github.com/julienschmidt/httprouter
 
- Another example more flexible:
- https://github.com/dimfeld/httptreemux
+Another example more flexible:
+https://github.com/dimfeld/httptreemux
 */
 package yahr
 
