@@ -21,7 +21,6 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
-	"sync"
 )
 
 // HandlerFunc defines the type of handlers this router accepts
@@ -49,9 +48,7 @@ func New() *YAHR {
 type node struct {
 	path string
 
-	mu      sync.RWMutex
-	methods map[string]HandlerFunc
-
+	methods  map[string]HandlerFunc
 	children map[string]*node
 
 	// true if path == :id
@@ -101,10 +98,7 @@ func (r *YAHR) search(nd *node, path []string, params url.Values) *node {
 		nd = nd.children[index]
 	}
 
-	if nd != nil {
-		return nd
-	}
-	return nil
+	return nd
 }
 
 // Handler add the user defined HandlerFunc
@@ -133,10 +127,7 @@ func (r *YAHR) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	// [1:] removes the first element
 	node := r.search(r.root, strings.Split(req.URL.Path, "/")[1:], params)
 
-	// make sure the access to the map is safe
-	node.mu.RLock()
 	handler := node.methods[req.Method]
-	node.mu.RUnlock()
 
 	if handler != nil {
 		handler(w, req, params)
